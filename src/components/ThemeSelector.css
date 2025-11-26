@@ -1,0 +1,46 @@
+.theme-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-selector-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.theme-selector-select {
+  padding: 6px 12px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.theme-selector-select:hover {
+  border-color: var(--button-bg);
+}
+
+.theme-selector-select:focus {
+  outline: none;
+  border-color: var(--button-bg);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .theme-selector {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .theme-selector-select {
+    flex: 1;
+    max-width: 150px;
+  }
+}
+

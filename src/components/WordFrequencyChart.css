@@ -1,0 +1,523 @@
+.word-frequency-chart {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--duplicate-list-bg);
+  overflow: hidden;
+  min-height: 0;
+  flex: 1;
+}
+
+.word-frequency-chart.compact {
+  /* Compact mode is always on */
+}
+
+.chart-header {
+  flex-shrink: 0;
+  border-bottom: 2px solid var(--border-color);
+  background: var(--toolbar-bg);
+  position: relative;
+}
+
+.chart-title {
+  padding: 20px 20px 16px 20px;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.3px;
+}
+
+/* Mobile settings toggle - top right */
+.chart-mobile-settings-toggle {
+  display: none; /* Hidden on desktop */
+}
+
+.chart-controls {
+  padding: 0 20px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Desktop: always show quick actions */
+.chart-quick-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+.chart-search {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.chart-search-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+
+.chart-search-input:focus {
+  outline: none;
+  border-color: var(--button-bg);
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+}
+
+.chart-search-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+.chart-actions {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.chart-sort-select {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+
+.chart-sort-select:hover {
+  border-color: var(--button-bg);
+  background: var(--bg-secondary);
+}
+
+.chart-sort-select:focus {
+  outline: none;
+  border-color: var(--button-bg);
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.1);
+}
+
+.chart-toggle-btn {
+  padding: 10px 14px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  min-width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-toggle-btn:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--button-bg);
+  transform: translateY(-1px);
+}
+
+.chart-toggle-btn.active {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border-color: var(--button-bg);
+}
+
+
+.chart-empty {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.chart-empty-hint {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+.chart-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 0;
+}
+
+.chart-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 12px;
+}
+
+.chart-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Mobile: reduce spacing between groups */
+@media (max-width: 480px) {
+  .chart-group {
+    margin-bottom: 4px;
+  }
+}
+
+.chart-group-header {
+  padding: 12px 16px 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: var(--bg-tertiary);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.chart-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 3px;
+  border: 2px solid transparent;
+  border-left: 4px solid transparent;
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  font-family: inherit;
+  width: 100%;
+}
+
+.chart-bar-container:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  transform: translateX(3px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-bar-container.active {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+  font-weight: 500;
+}
+
+.chart-bar-container.inactive {
+  opacity: 0.35;
+}
+
+.chart-bar-container.inactive:hover {
+  opacity: 0.6;
+}
+
+.chart-bar-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.chart-word-color-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 1px var(--border-color);
+}
+
+.chart-word {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 15px;
+  flex: 1;
+  text-align: left;
+  word-break: break-word;
+  line-height: 1.5;
+  letter-spacing: -0.2px;
+}
+
+.chart-bar-container.active .chart-word {
+  font-weight: 600;
+}
+
+.chart-count {
+  padding: 6px 12px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 36px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.3px;
+}
+
+.chart-bar-container.inactive .chart-count {
+  opacity: 0.5;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+}
+
+.chart-bar-wrapper {
+  display: none;
+}
+
+.chart-quick-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.chart-quick-action-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  pointer-events: auto;
+  position: relative;
+  z-index: 1;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.chart-quick-action-btn:hover:not(:disabled) {
+  background: var(--bg-tertiary);
+  border-color: var(--button-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-quick-action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mobile devices (phones) */
+@media (max-width: 480px) {
+  .word-frequency-chart {
+    width: 100%;
+    flex: 0 0 auto;
+    max-height: 45vh; /* Increased to show more words */
+    min-height: 300px; /* Minimum height */
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Allow scrolling */
+  }
+
+  .chart-header {
+    position: relative;
+    padding-right: 40px; /* Space for settings button */
+  }
+
+  .chart-title {
+    font-size: 15px;
+    padding: 8px 40px 6px 10px; /* Right padding for settings button */
+    font-weight: 600;
+    flex-shrink: 0;
+    line-height: 1.3;
+  }
+
+  /* Mobile settings toggle - top right */
+  .chart-mobile-settings-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+
+  .chart-mobile-settings-toggle:active {
+    background: var(--bg-tertiary);
+    transform: scale(0.95);
+  }
+
+  .chart-controls {
+    padding: 6px 10px;
+    gap: 6px;
+    flex-direction: column;
+    flex-shrink: 0;
+    align-items: stretch;
+  }
+
+  .chart-advanced-options {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .chart-advanced-options.visible {
+    display: flex;
+  }
+
+  .chart-quick-actions {
+    display: none;
+    margin-top: 6px;
+    gap: 6px;
+  }
+
+  .chart-quick-actions.visible {
+    display: flex;
+  }
+
+  .chart-search {
+    width: 100%;
+  }
+
+  .chart-search-input {
+    font-size: 14px;
+    padding: 8px 10px;
+    min-height: 36px;
+    width: 100%;
+    -webkit-appearance: none;
+    border-radius: 6px;
+  }
+
+  .chart-actions {
+    width: 100%;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .chart-sort-select {
+    flex: 1;
+    font-size: 13px;
+    padding: 6px 8px;
+    min-height: 36px;
+    -webkit-appearance: none;
+    border-radius: 6px;
+  }
+
+  .chart-toggle-btn {
+    min-width: 36px;
+    min-height: 36px;
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .chart-item {
+    padding: 6px 8px;
+    gap: 6px;
+    min-height: 36px; /* Slightly smaller but still touchable */
+    border-radius: 6px;
+    margin-bottom: 1px;
+  }
+
+  .chart-word {
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .chart-count {
+    padding: 3px 8px;
+    font-size: 11px;
+    min-width: 28px;
+    font-weight: 700;
+  }
+
+  .chart-word-color-indicator {
+    width: 10px;
+    height: 10px;
+  }
+
+  .chart-quick-action-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+    min-height: 32px;
+    font-weight: 500;
+    border-radius: 6px;
+    flex: 1;
+  }
+
+  .chart-content {
+    flex: 1;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    min-height: 0;
+    max-height: calc(45vh - 100px); /* Increased to show more words */
+  }
+
+  .chart-group-header {
+    padding: 4px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+/* Small tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  .word-frequency-chart {
+    width: 100%;
+    max-height: 450px;
+  }
+
+  .chart-title {
+    font-size: 17px;
+    padding: 14px 14px 12px 14px;
+  }
+
+  .chart-controls {
+    padding: 10px 14px;
+  }
+
+  .chart-content {
+    max-height: 400px;
+  }
+}
+
+/* Large tablets and up */
+@media (min-width: 769px) {
+  .word-frequency-chart {
+    /* Full height in sidebar */
+  }
+}

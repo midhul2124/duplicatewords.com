@@ -1,0 +1,105 @@
+.text-editor-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.text-editor-contenteditable {
+  flex: 1;
+  width: 100%;
+  padding: 16px;
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 1.6;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow: auto;
+  caret-color: var(--text-primary);
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+.text-editor-contenteditable:focus {
+  outline: none;
+}
+
+.text-editor-contenteditable[data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: var(--text-secondary);
+  font-style: italic;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.text-editor-contenteditable mark {
+  background-color: var(--highlight-color);
+  color: #ffffff;
+  padding: 2px 1px;
+  margin: 0;
+  border-radius: 3px;
+  display: inline;
+  line-height: inherit;
+  vertical-align: baseline;
+  font-weight: 500;
+}
+
+/* Mobile devices (phones) */
+@media (max-width: 480px) {
+  .text-editor-wrapper {
+    flex: 1;
+    min-height: 300px; /* Minimum height for mobile */
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Allow scrolling */
+  }
+
+  .text-editor-contenteditable {
+    font-size: 16px; /* Larger for mobile readability */
+    padding: 12px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%; /* Prevent iOS text size adjustment */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+    flex: 1;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    min-height: 300px;
+  }
+
+  .text-editor-contenteditable[data-placeholder]:empty:before {
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 0;
+  }
+}
+
+/* Small tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  .text-editor-wrapper {
+    min-height: 350px;
+  }
+
+  .text-editor-contenteditable {
+    font-size: 15px;
+    padding: 14px;
+  }
+}
+
+/* Large tablets and up */
+@media (min-width: 769px) {
+  .text-editor-contenteditable {
+    font-size: 16px;
+    padding: 16px;
+  }
+}

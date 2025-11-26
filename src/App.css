@@ -1,0 +1,418 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-bottom: 80px; /* Space for mobile bottom toolbar */
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Mobile devices (phones) */
+@media (max-width: 480px) {
+  .app {
+    padding: 8px;
+  }
+
+  .app-header {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+  }
+}
+
+/* Small tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+  .app {
+    padding: 16px;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .app {
+    padding: 18px;
+  }
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.app-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.app-content {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.editor-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.sidebar-section {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  overflow: hidden;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+/* Mobile devices (phones) - Stack vertically */
+@media (max-width: 480px) {
+  .app {
+    padding: 8px;
+    padding-bottom: 58px; /* Space for mobile bottom toolbar (reduced) */
+    height: 100vh;
+    overflow-y: auto; /* Enable vertical scrolling on mobile */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+    overflow-x: hidden;
+  }
+
+  .app-header {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    flex-shrink: 0;
+  }
+
+  .app-header h1 {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .app-content {
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
+    overflow: visible; /* Allow content to scroll */
+  }
+
+  .editor-section {
+    width: 100%;
+    flex: 1.5; /* Balanced space between editor and sidebar */
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Allow scrolling */
+  }
+
+  .sidebar-section {
+    width: 100%;
+    flex: 0 0 auto;
+    max-height: 45vh; /* Increased to show more words */
+    min-height: 300px; /* Minimum height to show more items */
+    display: flex;
+    flex-direction: column;
+    overflow: visible; /* Allow scrolling */
+  }
+}
+
+/* Small tablets - Stack vertically with better spacing */
+@media (min-width: 481px) and (max-width: 768px) {
+  .app-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .editor-section {
+    width: 100%;
+    min-height: 350px;
+  }
+
+  .sidebar-section {
+    width: 100%;
+    max-height: 450px;
+  }
+}
+
+/* Large tablets - Side by side with adjusted widths */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .app-content {
+    gap: 20px;
+  }
+
+  .editor-section {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sidebar-section {
+    width: 300px;
+    flex-shrink: 0;
+  }
+}
+
+/* Desktop - Optimal side by side layout */
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .app-content {
+    gap: 24px;
+  }
+
+  .editor-section {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sidebar-section {
+    width: 320px;
+    flex-shrink: 0;
+  }
+}
+
+/* Large desktop - Maximum width with optimal spacing */
+@media (min-width: 1401px) {
+  .app {
+    max-width: 1600px;
+  }
+
+  .sidebar-section {
+    width: 360px;
+  }
+}
+
+.app-footer {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 2px solid var(--border-color);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.donation-link {
+  color: var(--button-bg);
+  text-decoration: none;
+  font-size: 14px;
+  transition: opacity 0.2s;
+}
+
+.donation-link:hover {
+  opacity: 0.8;
+}
+
+/* Legacy mobile support - kept for backward compatibility */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+  }
+}
+
+/* Mobile bottom toolbar */
+.mobile-bottom-toolbar {
+  display: none; /* Hidden on desktop */
+}
+
+@media (max-width: 480px) {
+  .mobile-bottom-toolbar {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--toolbar-bg);
+    border-top: 2px solid var(--border-color);
+    padding: 6px 4px;
+    gap: 4px;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  .mobile-bottom-toolbar::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+  }
+
+  .mobile-toolbar-group {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .mobile-toolbar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .mobile-toolbar-btn-icon {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .mobile-toolbar-btn:active:not(:disabled) {
+    transform: scale(0.95);
+    background: var(--bg-tertiary);
+  }
+
+  .mobile-toolbar-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .mobile-toolbar-btn.active {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border-color: var(--button-bg);
+  }
+
+  .mobile-toolbar-btn-primary {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border-color: var(--button-bg);
+  }
+
+  .mobile-toolbar-icon {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* Value controls with +/- buttons - more compact */
+  .mobile-toolbar-value-controls {
+    flex: 0 0 auto;
+    justify-content: center;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .mobile-toolbar-value-btn {
+    display: flex;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+    min-width: 70px;
+    max-width: 70px;
+    flex-shrink: 0;
+  }
+
+  .mobile-toolbar-value-decrease,
+  .mobile-toolbar-value-increase {
+    width: 28px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .mobile-toolbar-value-decrease:active,
+  .mobile-toolbar-value-increase:active {
+    background: var(--bg-tertiary);
+  }
+
+  .mobile-toolbar-value-display {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2px 4px;
+    min-width: 0;
+  }
+
+  .mobile-toolbar-value-label {
+    font-size: 8px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .mobile-toolbar-value-number {
+    font-size: 14px;
+    color: var(--text-primary);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-top: 1px;
+  }
+
+  /* Hide regular toolbar on mobile */
+  .toolbar {
+    display: none;
+  }
+
+  /* Show stats inline */
+  .stats {
+    margin-bottom: 8px;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
