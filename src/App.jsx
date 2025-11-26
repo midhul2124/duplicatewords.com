@@ -274,7 +274,10 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Duplicate Word Finder</h1>
+        <div className="header-logo-container">
+          <img src="/logo.png" alt="Logo" className="header-logo" />
+          <h1>Duplicate Word Finder</h1>
+        </div>
       </header>
       
       <div className="app-content">
